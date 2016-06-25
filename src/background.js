@@ -58,6 +58,29 @@ function htmlEsc(str) {
     return str.replace(/&/g,"&amp;").replace(/>/g,"&gt;").replace(/</g,"&lt;");
 }
 
+function sendObjectToWorkflowy(parentId, obj, onSuccess, onError) {
+	clipToWorkflowy(parentId, obj.title, obj.comment, function(newuuid, errmsg){
+		if (errmsg) {
+			if (onError) {
+				onError(newuuid, errormsg);
+			}
+			return;
+		}
+		
+		// Parent created succsessfuly
+		if (obj.children) {
+			obj.children.forEach(function(currentValue, index, arr){
+				sendObjectToWorkflowy(newuuid, currentValue, null, onError);
+			});
+		}
+		
+		if (onSuccess) {
+			onSuccess(newuuid);
+		}
+	});
+}
+
+
 function clipToWorkflowy(parentId, title, comment, callback) {
     var newuuid = generateUUID();
     var timestamp = Math.floor((new Date()).getTime()/1000) - localStorage.joined;

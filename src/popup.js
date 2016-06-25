@@ -78,6 +78,31 @@ function initClipperPopup(tab) {
 	}
 	
     $("#clipbutton").on("click", function () {  
+		var obj = {
+			title: $("#title").val(),
+			comment: $("#comment").val(),
+			children: [ 
+				{
+					title: "Plugin version",
+					comment: chrome.app.getDetails().version
+				}
+				{
+					title: "Raw HTML",
+					comment: $("#rawHtml").val()
+				},
+				
+			]			
+		};
+		backgroundPage.sendObjectToWorkflowy(localStorage.inbox, obj, function(newuuid){
+			// Great success
+			showSuccessMsg("Successfully clipped!<br><br>"
+				+ "<small><a href=\"https://workflowy.com/#/"
+				+ newuuid.substr(24) + "\">view in WorkFlowy</a>"
+				+ "</small>");
+		}, function(){
+			handleWorkflowyError(errmsg);
+		});
+	/*
         backgroundPage.clipToWorkflowy( localStorage.inbox, $("#title").val(), $("#comment").val(), function(newuuid,errmsg) {
             if (errmsg) {
 				handleWorkflowyError(errmsg);
@@ -98,6 +123,7 @@ function initClipperPopup(tab) {
 					+ "</small>");
 			});
         });
+					*/
     });
 }
 
