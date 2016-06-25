@@ -63,26 +63,32 @@ function initClipperPopup(tab) {
         if (e.keyCode == 13) $("#clipbutton").click();
     });
 
+	var backgroundPage = chrome.extension.getBackgroundPage();
+	
+	function handleWorkflowyError(errmsg) {
+		if (errmsg.match(/logged/)) {
+			showErrMsg("WorkFlowy thinks you're logged out! Make sure you're logged in, and if this message persists then try resynchronizing the extension.");
+		} else if (errmsg.match(/results/)) {
+			showErrMsg("Malformed response from WorkFlowy, possible connection error.");
+		} else if (errmsg.match(/generic/)) {
+			showErrMsg("Error adding item, destination list may no longer exist.");
+		} else if (errmsg.match(/unknown/)) {
+			showErrMsg("Unknown error!");
+		}
+	}
+	
     $("#clipbutton").on("click", function () {  
-        chrome.extension.getBackgroundPage().clipToWorkflowy( $("#title").val(), $("#comment").val(), $("#rawHtml").val(), function(newuuid,errmsg) {
-
-            if (!errmsg) {
-                showSuccessMsg("Successfully clipped!<br><br>"
-                    + "<small><a href=\"https://workflowy.com/#/"
-                    + newuuid.substr(24) + "\">view in WorkFlowy</a>"
-                    + "</small>");
-
-            } else if (errmsg.match(/logged/)) {
-                showErrMsg("WorkFlowy thinks you're logged out! Make sure you're logged in, and if this message persists then try resynchronizing the extension.");
-            } else if (errmsg.match(/results/)) {
-                showErrMsg("Malformed response from WorkFlowy, possible connection error.");
-            } else if (errmsg.match(/generic/)) {
-                showErrMsg("Error adding item, destination list may no longer exist.");
-            } else if (errmsg.match(/unknown/)) {
-                showErrMsg("Unknown error!");
-            } else {
+        backgroundPage.clipToWorkflowy( $("#title").val(), $("#comment").val(), function(newuuid,errmsg) {
+            if (errmsg) {
+				handleWorkflowyError(errmsg);
+				return;
             }
 
+			// Success. Now try to add child node with $("#rawHtml").val()				
+			showSuccessMsg("Successfully clipped!<br><br>"
+				+ "<small><a href=\"https://workflowy.com/#/"
+				+ newuuid.substr(24) + "\">view in WorkFlowy</a>"
+				+ "</small>");
         });
     });
 }

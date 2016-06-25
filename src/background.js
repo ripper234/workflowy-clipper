@@ -58,7 +58,7 @@ function htmlEsc(str) {
     return str.replace(/&/g,"&amp;").replace(/>/g,"&gt;").replace(/</g,"&lt;");
 }
 
-function clipToWorkflowy(title, comment, rawHtml, callback) {
+function clipToWorkflowy(title, comment, callback) {
     var newuuid = generateUUID();
     var timestamp = Math.floor((new Date()).getTime()/1000) - localStorage.joined;
     
