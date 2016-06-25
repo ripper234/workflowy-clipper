@@ -18,7 +18,9 @@
     "permissions": [
         "activeTab",
         "contextMenus",
-        "https://workflowy.com/*"
+        "https://workflowy.com/*",
+		"tabs",
+		"<all_urls>"
     ],
 
     "background": {
