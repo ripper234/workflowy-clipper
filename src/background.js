@@ -101,7 +101,7 @@ function clipToWorkflowy(parentId, title, comment, callback) {
               "data": {
                   "projectid":   newuuid,
                   "name":        htmlEsc(title),
-                  "description": htmlEsc(comment)
+                  "description": comment ? htmlEsc(comment) : ""
               },
               "client_timestamp": timestamp,
               "undo_data": {
@@ -118,7 +118,7 @@ function clipToWorkflowy(parentId, title, comment, callback) {
           title: title,
           comment: comment,
           escapedTitle: htmlEsc(title),
-          escapedComment: htmlEsc(comment),
+          escapedComment: comment ? htmlEsc(comment) : "",
           localstorage: localStorage }
     );
 

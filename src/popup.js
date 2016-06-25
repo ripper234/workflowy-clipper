@@ -82,14 +82,11 @@ function initClipperPopup(tab) {
 			title: $("#title").val(),
 			comment: $("#comment").val(),
 			children: [ 
-				{
-					title: "Plugin version",
+				{	title: "Plugin version",
 					comment: chrome.app.getDetails().version
-				}
-				{
-					title: "Raw HTML",
+				},{	title: "Raw HTML",
 					comment: $("#rawHtml").val()
-				},
+				}
 				
 			]			
 		};
