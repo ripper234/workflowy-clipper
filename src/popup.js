@@ -78,7 +78,7 @@ function initClipperPopup(tab) {
 	}
 	
     $("#clipbutton").on("click", function () {  
-        backgroundPage.clipToWorkflowy( $("#title").val(), $("#comment").val(), function(newuuid,errmsg) {
+        backgroundPage.clipToWorkflowy( $("#title").val(), $("#comment").val(), localStorage.inbox, function(newuuid,errmsg) {
             if (errmsg) {
 				handleWorkflowyError(errmsg);
 				return;

@@ -58,7 +58,7 @@ function htmlEsc(str) {
     return str.replace(/&/g,"&amp;").replace(/>/g,"&gt;").replace(/</g,"&lt;");
 }
 
-function clipToWorkflowy(title, comment, callback) {
+function clipToWorkflowy(title, comment, parentId, callback) {
     var newuuid = generateUUID();
     var timestamp = Math.floor((new Date()).getTime()/1000) - localStorage.joined;
     
@@ -68,7 +68,7 @@ function clipToWorkflowy(title, comment, callback) {
             { "type": "create",
               "data": {
                   "projectid": newuuid,
-                  "parentid":  localStorage.inbox,
+                  "parentid":  parentId,
                   "priority":  9999
                },
               "client_timestamp": timestamp,
