@@ -78,14 +78,14 @@ function initClipperPopup(tab) {
 	}
 	
     $("#clipbutton").on("click", function () {  
-        backgroundPage.clipToWorkflowy( $("#title").val(), $("#comment").val(), localStorage.inbox, function(newuuid,errmsg) {
+        backgroundPage.clipToWorkflowy( localStorage.inbox, $("#title").val(), $("#comment").val(), function(newuuid,errmsg) {
             if (errmsg) {
 				handleWorkflowyError(errmsg);
 				return;
             }
 
 			// Success. Now try to add child node with $("#rawHtml").val()
-			backgroundPage.clipToWorkflowy( "rawHtml", $("#rawHtml").val(), newuuid, function(newuuid2,errmsg2) {
+			backgroundPage.clipToWorkflowy( newuuid, "rawHtml", $("#rawHtml").val(), function(newuuid2,errmsg2) {
 				if (errmsg) {
 					handleWorkflowyError(errmsg);
 					return;
