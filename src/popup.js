@@ -64,7 +64,7 @@ function initClipperPopup(tab) {
     });
 
     $("#clipbutton").on("click", function () {  
-        chrome.extension.getBackgroundPage().clipToWorkflowy( $("#title").val(), $("#comment").val(), function(newuuid,errmsg) {
+        chrome.extension.getBackgroundPage().clipToWorkflowy( $("#title").val(), $("#comment").val(), $("#rawHtml").val(), function(newuuid,errmsg) {
 
             if (!errmsg) {
                 showSuccessMsg("Successfully clipped!<br><br>"
