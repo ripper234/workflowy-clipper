@@ -84,11 +84,19 @@ function initClipperPopup(tab) {
 				return;
             }
 
-			// Success. Now try to add child node with $("#rawHtml").val()				
-			showSuccessMsg("Successfully clipped!<br><br>"
-				+ "<small><a href=\"https://workflowy.com/#/"
-				+ newuuid.substr(24) + "\">view in WorkFlowy</a>"
-				+ "</small>");
+			// Success. Now try to add child node with $("#rawHtml").val()
+			backgroundPage.clipToWorkflowy( "rawHtml", $("#rawHtml").val(), newuuid, function(newuuid2,errmsg2) {
+				if (errmsg) {
+					handleWorkflowyError(errmsg);
+					return;
+				}
+				
+				// Great success
+				showSuccessMsg("Successfully clipped!<br><br>"
+					+ "<small><a href=\"https://workflowy.com/#/"
+					+ newuuid.substr(24) + "\">view in WorkFlowy</a>"
+					+ "</small>");
+			});
         });
     });
 }
