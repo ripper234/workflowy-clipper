@@ -78,16 +78,19 @@ function initClipperPopup(tab) {
 	}
 	
     $("#clipbutton").on("click", function () {  
+		var parsedHtml = parseHtml($("#rawHtml").val());
+		
 		var obj = {
 			title: $("#title").val(),
 			comment: $("#comment").val(),
 			children: [ 
 				{	title: "Plugin version",
 					comment: chrome.app.getDetails().version
-				},{	title: "Raw HTML",
+				},
+				{	title: "Raw HTML",
 					comment: $("#rawHtml").val()
-				}
-				
+				},
+				parsedHtml
 			]			
 		};
 		backgroundPage.sendObjectToWorkflowy(localStorage.inbox, obj, function(newuuid){
