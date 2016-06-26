@@ -174,6 +174,7 @@ function showErrMsg(msg) {
 chrome.runtime.onMessage.addListener(function(request, sender) {
   if (request.action == "getSource") {
     rawHtml.innerText = request.source;
+	parsedHtml.innerText = treetoText(parseHtml(request.source));
   }
 });
 

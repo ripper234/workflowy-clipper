@@ -102,18 +102,21 @@ function indent(str, depth) {
   return spaces + str;
 }
 
-function treetoText(result, depth) {
+function treetoText(result, newline, depth) {
   var text = '';
   if (!depth) {
     depth = 0;
   }
+  if (!newline) {
+	  newline = '\r\n'; // Use <br/> for HTML
+  }
   
   if (result.title) {
-    text += indent(result.title + '<br/>', depth);
+    text += indent(result.title + newline, depth);
   }
   if (result.children) {
     $.each(result.children, function(index, value) {
-      text += treetoText(value, depth+1);
+      text += treetoText(value, newline, depth+1);
     });
   }
   return text;
