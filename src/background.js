@@ -173,6 +173,6 @@ function clipToWorkflowy(parentId, title, comment, callback) {
 
  chrome.tabs.getSelected(null, function (tab) {
             chrome.tabs.sendRequest(tab.id, {action: "getSource"}, function(source) {
-                alert(source);
+                // alert(source);
             });
         });
